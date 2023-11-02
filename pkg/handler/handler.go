@@ -34,6 +34,7 @@ func (h *Handler) Init() error {
 			}
 		case "quit":
 			return nil
+
 		}
 	}
 }

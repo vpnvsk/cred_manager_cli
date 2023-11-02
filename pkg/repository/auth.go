@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"github.com/pterm/pterm"
 	"io"
 	"net/http"
 	"p_s_cli/internal/models"
@@ -17,24 +18,25 @@ func NewAuthorizationRepo(url string) *AuthorizationRepo {
 	return &AuthorizationRepo{baseURL: url}
 }
 
-func (r *AuthorizationRepo) LogIn(user models.User) (string, error) {
+func (r *AuthorizationRepo) LogIn(user models.User) error {
 	url := r.baseURL + "/auth/log-in"
 	// Marshal the data into a JSON byte slice.
 	jsonData, err := json.Marshal(user)
 	if err != nil {
-		return "", err
+		return err
 	}
 
 	resp, _ := http.Post(url, "application/json", bytes.NewBuffer(jsonData))
 	if resp.StatusCode != 200 {
-		return "", errors.New("bad credentials")
+		return errors.New("bad credentials")
 	}
 
 	if err = getAndSaveToken(resp); err != nil {
-		return "", err
+		return err
 	}
+	pterm.Success.Printfln("LogIn successfully")
 
-	return "Success", nil
+	return err
 }
 func getAndSaveToken(resp *http.Response) error {
 	var accessToken models.JWTToken
@@ -70,10 +72,10 @@ func (r *AuthorizationRepo) SignUp(user models.User) error {
 
 	// Start a goroutine to perform the login.
 	go func() {
-		result, loginErr := r.LogIn(user)
+		loginErr := r.LogIn(user)
 		if loginErr != nil {
 			loginResult <- loginErr
-		} else if result == "Success" {
+		} else {
 			loginResult <- nil // Login succeeded
 		}
 	}()

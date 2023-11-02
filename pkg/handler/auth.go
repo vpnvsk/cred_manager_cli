@@ -28,7 +28,7 @@ func (h *Handler) LogIn() error {
 	auth.UserName = result
 	resultPas, _ := pterm.DefaultInteractiveTextInput.WithMask(" ").Show("password")
 	auth.Password = resultPas
-	_, err := h.repository.LogIn(auth)
+	err := h.repository.LogIn(auth)
 	return err
 }
 func (h *Handler) SignUp() error {

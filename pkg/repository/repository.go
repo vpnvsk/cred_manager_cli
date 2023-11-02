@@ -18,7 +18,7 @@ func NewRepository(url string) *Repository {
 }
 
 type Authorization interface {
-	LogIn(user models.User) (string, error)
+	LogIn(user models.User) error
 	SignUp(user models.User) error
 }
 type Manager interface {
