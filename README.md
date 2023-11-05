@@ -19,4 +19,4 @@ This is a CLI app written in Go that allows you to connect to a credentials mana
 2. Clone this repository:
 
    ```bash
-   git clone https://github.com/your-username/cli-credentials-manager.git
+   git clone https://github.com/vpnvsk/p_s_cli
