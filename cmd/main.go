@@ -19,8 +19,9 @@ func main() {
 	repo := repository.NewRepository(url)
 	handler := handler2.NewHandler(repo)
 
-	if err := handler.Init(); err != nil {
-		pterm.Error.Printfln("Error: %s", err.Error())
-	}
-
+	go func() {
+		if err := handler.Init(); err != nil {
+			pterm.Error.Printfln("Error: %s", err.Error())
+		}
+	}()
 }

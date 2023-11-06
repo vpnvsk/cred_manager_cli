@@ -14,7 +14,6 @@ func NewHandler(repository *repository.Repository) *Handler {
 }
 
 func (h *Handler) Init() error {
-
 	for {
 		result, _ := pterm.DefaultInteractiveSelect.
 			WithOptions([]string{"auth", "get list of services", "create new", "quit"}).

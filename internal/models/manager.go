@@ -15,8 +15,8 @@ type SingleManager struct {
 	Password  string `json:"password"`
 }
 type UpdateManager struct {
-	Title       string `json:"title"`
-	Userlogin   string `json:"userlogin"`
-	Password    string `json:"password" `
-	Description string `json:"description"`
+	Title       string `json:"title,omitempty"`
+	Userlogin   string `json:"userlogin,omitempty"`
+	Password    string `json:"password,omitempty" `
+	Description string `json:"description,omitempty""`
 }
