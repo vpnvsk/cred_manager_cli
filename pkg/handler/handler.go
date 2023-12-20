@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"github.com/pterm/pterm"
 	"p_s_cli/pkg/repository"
 )
@@ -9,18 +10,18 @@ type Handler struct {
 	repository *repository.Repository
 }
 
-func NewHandler(repository *repository.Repository) *Handler {
-	return &Handler{repository: repository}
+func NewHandler(repo *repository.Repository) *Handler {
+	return &Handler{repository: repo}
 }
 
-func (h *Handler) Init() error {
+func (h *Handler) Init(ctx context.Context) error {
 	for {
 		result, _ := pterm.DefaultInteractiveSelect.
 			WithOptions([]string{"auth", "get list of services", "create new", "quit"}).
 			Show()
 		switch result {
 		case "auth":
-			if err := h.Auth(); err != nil {
+			if err := h.Auth(ctx); err != nil {
 				return err
 			}
 		case "get list of services":

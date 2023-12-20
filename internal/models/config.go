@@ -5,12 +5,12 @@ import (
 	"os"
 )
 
-type Config struct {
+type Token struct {
 	JwtToken string `json:"token"`
 }
 
-func (c Config) WriteToken(filePath string) error {
-	configJSON, err := json.Marshal(c)
+func (t Token) WriteToken(filePath string) error {
+	configJSON, err := json.Marshal(t)
 	if err != nil {
 		panic(err)
 	}

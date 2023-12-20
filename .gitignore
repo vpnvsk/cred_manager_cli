@@ -7,7 +7,7 @@
 *.dll
 *.so
 *.dylib
-config.json
+token.json
 # Test binary, built with `go test -c`
 *.test
 

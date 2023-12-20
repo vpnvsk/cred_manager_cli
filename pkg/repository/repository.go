@@ -1,8 +1,11 @@
 package repository
 
 import (
+	"context"
 	"github.com/google/uuid"
+	"p_s_cli/internal/client"
 	"p_s_cli/internal/models"
+	"time"
 )
 
 type Repository struct {
@@ -10,16 +13,22 @@ type Repository struct {
 	Manager
 }
 
-func NewRepository(url string) *Repository {
+func NewRepository(
+	ctx context.Context,
+	url, authUrl string,
+	timeout time.Duration,
+	retriesCount int,
+	appId int32,
+) *Repository {
 	return &Repository{
-		Authorization: NewAuthorizationRepo(url),
+		Authorization: client.NewClient(ctx, authUrl, timeout, retriesCount, appId),
 		Manager:       NewManager(url),
 	}
 }
 
 type Authorization interface {
-	LogIn(user models.User) error
-	SignUp(user models.User) error
+	LogIn(ctx context.Context, user models.User) error
+	SignUp(ctx context.Context, user models.User) error
 }
 type Manager interface {
 	GetList() (models.AllList, error)
