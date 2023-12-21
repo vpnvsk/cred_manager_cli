@@ -26,7 +26,7 @@ func NewManager(url string) *ManagerRepo {
 
 func (r *ManagerRepo) makeRequest(method, endpoint string, body []byte) (*http.Response, error) {
 	url := r.baseURL + endpoint
-	token, err := readConfig("config.json")
+	token, err := readConfig("token.json")
 	if err != nil {
 		return nil, err
 	}
